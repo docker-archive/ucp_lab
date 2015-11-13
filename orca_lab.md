@@ -107,7 +107,7 @@ In this section we'll deploy an Nginx container using UCP
 ## Task 4: Using UCP from the Command Line
 One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle into an Ubuntu host in AWS.
 
-1. Click the drop down menu in the upper left corner of the UCP screen
+1. Click the drop down menu in the upper right corner of the UCP screen
 
 	![Client Bundle](images/client_bundle.png)
 	
