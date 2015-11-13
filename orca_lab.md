@@ -1,9 +1,9 @@
 ##Task 1: Installing Docker Universal Control Plane
 In this task we're going to install the Docker Universal Control Plane (UCP) server onto **Node-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
 
-**Note***: Normally the isntaller would pull the installation images from Docker Hub or Docker Trusted Registry (DTR), for this lab, we've prestaged the images onto your machine so you won't need to login to either Docker Hub or DTR
+**Note***: Normally the isntaller would pull the installation images from Docker Hub or Docker Trusted Registry (DTR), for this lab, we've prestaged the images onto your machine so you won't need to login to either Docker Hub or DTR*
 
-**Note***: Some dialogs / logs will say "Orca" this was the interal code name for UCP
+**Note***: Some dialogs / logs will say "Orca" this was the interal code name for UCP*
 
 1. SSH into **Node-0**
 
@@ -38,15 +38,6 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 		
 	**Note***: The installer shows the private IP but we will login via the public dns*
 	
-4. In your web browser navigate to the UCP server via Node-0's public DNS
-
-	For example: `https://ec2-52-33-49.us-west-2.compute.amazonaws.com`
-	
-	**Note***: You will be warned that your connection is not private. That is because we are not using publicly signed certificates for the SSL connnection to the website.*
-	
-	*To by pass this click `advanced` and then `proceed to . . . .` link*
-	
-5. Login into the UCP server with the username `admin` (case sensitive) and the password `D0ckerconEU!`
 
 ##Task 2: Deploy a Second Docker Host (NOT FINISHED)
 One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In this step we'll add a 2nd node (**Node-1**) to for UCP to manage (which is the same as adding a second node to a Swarm cluster). 
@@ -80,15 +71,25 @@ One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In 
 ##Task 3: Create a Container
 In this section we'll deploy an Nginx container using UCP
 
-1. In the UCP UI click the menu button in the upper left corner
+1. In your web browser navigate to the UCP server via Node-0's public DNS
+
+	For example: `https://ec2-52-33-49.us-west-2.compute.amazonaws.com`
+	
+	**Note***: You will be warned that your connection is not private. That is because we are not using publicly signed certificates for the SSL connnection to the website.*
+	
+	*To by pass this click `advanced` and then `proceed to . . . .` link*
+	
+2. Login into the UCP server with the username `admin` (case sensitive) and the password `D0ckerconEU!`
+
+3. In the UCP UI click the menu button in the upper left corner
 
 	![Menu](images/menu.png)
 
-2. From the drop down select `Containers`
+4. From the drop down select `Containers`
 
-3. On the Orca / Networks page, click `+ Deploy Container`
+5. On the Orca / Networks page, click `+ Deploy Container`
 	
-4. Provide the following inputs:
+6. Provide the following inputs:
 
 	- Image Name: `nginx:latest`	
 	- Container Name: `mynginx`
