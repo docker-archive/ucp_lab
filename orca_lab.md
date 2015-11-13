@@ -7,9 +7,11 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 
 1. SSH into **Node-0**
 
-		$ ssh -i <username.pem> ubuntu@<node-0 public ip>
+		$ ssh ubuntu@<node-0 public ip>
 	
  	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+ 	
+ 	**Note***: The default password is* `D0ckerconEU!`
 
 2. Run the UCP bootstrap with the install option
 
@@ -24,7 +26,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	- Password: `D0ckerconEU!`
 	- Additional Aliases: <**Node-0** Public DNS>
 
-	the UCP installer should finis should finish with:
+	the UCP installer should finish with:
 	
 		INFO[0160] Installing Orca with host address 172.31.42.38
 		INFO[0002] Generating Swarm Root CA
@@ -51,9 +53,11 @@ One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In 
 
 1. SSH into **Node-1**
 
-		$ ssh -i <username.pem> ubuntu@<node-1 public ip>
+		$ ssh ubuntu@<node-1 public ip>
 	
  	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+ 	
+ 	**Note***: The default password is* `D0ckerconEU!`
 
 2. Run the UCP bootstrap with the join option
 
@@ -124,7 +128,7 @@ One of the great things about UCP is that it doesn't preclude you from using the
  
 4. SCP the directory with the UCP client files up to the home directory on **Node-2**
 
- 		$ scp -i <username>.pem -r ~/UCP ubuntu@<node-2 public ip>:~/
+ 		$ scp -r ~/UCP ubuntu@<node-2 public ip>:~/
  		
  		ca.pem                              100% 3652     3.6KB/s   00:00
 		cert.pem                            100% 1655     1.6KB/s   00:00
@@ -133,12 +137,18 @@ One of the great things about UCP is that it doesn't preclude you from using the
 		key.pem                             100% 1679     1.6KB/s   00:00
 		orca-bundle-admin.zip               100% 8487     8.3KB/s   00:00
 		
-	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+   **Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+       
+   **Note***: The default password is* `D0ckerconEU!`
 	
 5. SSH into **Node-2**
 
-		$ ssh -i <username.pem> ubuntu@<node-2 public IP>
+		$ ssh ubuntu@<node-2 public IP>
 		
+   **Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+ 	
+ 	**Note***: The default password is* `D0ckerconEU!`
+ 	
 6. Change into the directory containing our client files
 
 		$ cd UCP
