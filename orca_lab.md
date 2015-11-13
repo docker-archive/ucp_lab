@@ -24,7 +24,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 3. Provide the following inputs:
 
 	- Password: `D0ckerconEU!`
-	- Additional Aliases: <**Node-0** Public DNS>
+	- Additional Aliases: `<Node-0 Public DNS>` `<Node-0 Public IP>`
 
 	the UCP installer should finish with:
 	
@@ -48,7 +48,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	
 5. Login into the UCP server with the username `admin` (case sensitive) and the password `D0ckerconEU!`
 
-##Task 2: Deploy a Second Docker Host
+##Task 2: Deploy a Second Docker Host (NOT FINISHED)
 One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In this step we'll add a 2nd node (**Node-1**) to for UCP to manage (which is the same as adding a second node to a Swarm cluster). 
 
 1. SSH into **Node-1**
@@ -73,8 +73,10 @@ One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In 
 	- Proceed with the join: `y`
 	- Admin username: `admin`
 	- Admin password: `D0ckerconEU!`
-	- Additional aliases: `<node-1 public dns>`
-	
+	- Additional Aliases: `<Node-1 Public DNS>` `<Node-1 Public IP>`
+
+#(Not Finished)
+
 ##Task 3: Create a Container
 In this section we'll deploy an Nginx container using UCP
 
