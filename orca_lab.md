@@ -26,7 +26,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	- Password: `D0ckerconEU!`
 	- Additional Aliases: `<Node-0 Public DNS>` `<Node-0 Public IP>`
 
-	the UCP installer should finish with:
+	The UCP installer should finish something similar to:
 	
 		INFO[0160] Installing Orca with host address 172.31.42.38
 		INFO[0002] Generating Swarm Root CA
@@ -35,9 +35,6 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 		INFO[0027] Orca instance ID: JJOB:SQP3:PERQ:UPP3:54UP:K7B6:ZWL6:GLES:CN7M:5KLO
 		INFO[0027] Orca Server SSL: SHA1 Fingerprint=48:22:4F:6B:36:6D:
 		INFO[0027] Login as "admin"/(your admin password) to Orca at https://<node-0 private IP>:443
-		
-	**Note***: The installer shows the private IP but we will login via the public dns*
-	
 
 ##Task 2: Deploy a Second Docker Host (NOT FINISHED)
 One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In this step we'll add a 2nd node (**Node-1**) to for UCP to manage (which is the same as adding a second node to a Swarm cluster). 
