@@ -100,7 +100,7 @@ In this section we'll deploy an Nginx container using UCP
 
 	![Run Container](images/run_container.png)
 	
-6. In your web browser navigate to `http://<node-0 public ip>:8000` and you should see the Nginx welcome screen.
+6. In your web browser navigate to `http://<node-0 public ip>:8005` and you should see the Nginx welcome screen.
 	
 ## Task 4: Using UCP from the Command Line
 One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle into an Ubuntu host in AWS.
@@ -223,6 +223,10 @@ In this task we'll use Docker Compose to stand up a multi-tier application on ou
 		Removing intermediate container 12a4ce9c7612
 		Successfully built 97dfeab680fb
 		Creating dockercoins_webui_1
+
+5. In your web browser, open a new tab and navigate to `http://<node-0 public IP>:8000/` to see your app running 
+
+	**Note***: Be sure to use HTTP not HTTPS*
 		
 5. In your web browser navigate back to the UCP server (`https://<node-0 public IP>`)
 
