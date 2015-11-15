@@ -51,7 +51,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 	images, 1 node, and 0 applications running. These images and containers are 	what power the UCP server.
 	
 ##Task 2: Deploy a Second Docker Host (NOT FINISHED)
-One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In this step we'll add a 2nd node (**ducp-1**) to for UCP to manage (which is the same as adding a second node to a Swarm cluster). 
+In this step we'll add a 2nd node (**ducp-1**) to our cluster. 
 
 1. In a new terminal session SSH into **ducp-1**
 
@@ -117,14 +117,14 @@ In this section we'll deploy an Nginx container using UCP
 	
 6. Click the magnifying glass next to  your container, and scroll down to find 	out which node your webserver is running on (`ducp-0` or `ducp-1`)
 
-	In your web browser navigate to the IP address (and port 8005) of the node 	where Nginx is running. 
+	In your web browser navigate to the IP address (and port 8005) of the node (`ducp-0` or `ducp-1`) 	where Nginx is running. 
 
 	For example: `http://52.23.41.23:8005`
 
 	You should see the Nginx welcome screen.
 	
 ## Task 4: Using UCP from the Command Line
-One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle into an Ubuntu host in AWS.
+One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle on to an Ubuntu host in AWS.
 
 1. SSH into **ducp-2**
 
@@ -142,12 +142,12 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 		$ sudo apt-get install zip
 
-1. Export the security token from the UCP server
+1. In order to curl the container onto our machine, we need to export the security token from the UCP server
 
 		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"D0ckerconEU!"}' https://<ducp-0 IP>/auth/login | jq -r .auth_token)
 		
 	
-2. Curl the client bundle down to your 
+2. Curl the client bundle down to your node. 
 
 		curl -k -H "X-Access-Token:admin:$AUTHTOKEN" https://<ducp-0 IP>/api/clientbundle -o bundle.zip
 		
@@ -159,7 +159,7 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 		$ source env.sh
 		
-9. Run `docker info` to examine the configuration of your Docker Swarm
+9. Run `docker info` to examine the configuration of your Docker Swarm. Your output should show that you are managing the swarm vs. a single node. 
 
 		$ docker info
 		Containers: 10
@@ -219,13 +219,19 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 		  ports:
 		    - "5001:80"
 		
-4. Standup the application. The compose file will stand up 4 different 	containers that comprise an app that stands up voting application
+4. Standup the application. The compose file will stand up several different 	containers that comprise a voting app
 
 		$ docker-compose up -d
 		
-	It will take a couple minutes for the compose to complete, and several lines 	of text 	will scroll by. It should finish similar to this
+	It will take a couple minutes for the compose to complete, and several lines 	of text will scroll by. It should finish similar to this
 
-
+		Creating ubuntu_voting-app_1
+		Pulling result-app (dockercond2/dockercon-result-app:latest)...
+		orca-node-1: Pulling dockercond2/dockercon-result-app:latest... : downloaded
+		orca-node-0: Pulling dockercond2/dockercon-result-app:latest... : downloaded
+		Creating ubuntu_result-app_1
+		Attaching to ubuntu_db_1, ubuntu_redis_1, ubuntu_worker_1, ubuntu_voting-app_1, ubuntu_result-app_1
+		
 5. In your web browser, open a new tab and navigate to 	`http://<ducp-0 public IP>:8000/` You should see the Dockercoins UI 
 
 	**Note***: Be sure to use HTTP not HTTPS*
@@ -238,15 +244,15 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 
 	![Menu](images/menu.png)
 	
-7. List out all the running containers by clicking `Show` on the line listing the Dockercoins application
+7. List out all the running containers by clicking `Show` on the line listing 	the Dockercoins application
 
 	![Show Containers](images/show.png)
 	
-	Notice that from here you control the container state (stop, restart, start) as well as 	delete a container. 
+	Notice that from here you control the container state (stop, restart, start) 	as well as 	delete a container. 
 
-8. Click `inspect` next to the dockercoins_rng container
+8. Click `inspect` next to any of the containers
 
-	This shows us the details of the running container. We can also control container state 	here. Aditionally we can scale out a given container. 
+	This shows us the details of the running container. We can also control 	container state 	here. Aditionally we can scale out a given container. 
 	
 10. Notice how the menu bar allows you to see performance stats, logs, and even open a console window into the container. Feel free to explore these options. 
 
