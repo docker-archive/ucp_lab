@@ -1,19 +1,19 @@
 ##Task 1: Installing Docker Universal Control Plane
 In this task we're going to install the Docker Universal Control Plane (UCP) server onto **Node-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
 
-**Note***: Normally the isntaller would pull the installation images from Docker Hub or Docker Trusted Registry (DTR), for this lab, we've prestaged the images onto your machine so you won't need to login to either Docker Hub or DTR*
+**Note***: Normally the installer would pull the installation images from Docker Hub or Docker Trusted Registry (DTR), for this lab, we've prestaged the images onto your machine so you won't need to login to either Docker Hub or DTR*
 
-**Note***: Some dialogs / logs will say "Orca" this was the interal code name for UCP*
+**Note***: Some dialogs / logs will say "Orca" this is the internal code name for UCP*
 
 1. SSH into **Node-0**
 
 		$ ssh ubuntu@<node-0 public ip>
 	
- 	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+ 	**Note***: You may be prompted to accept the RSA key. If so, enter* `yes`
  	
  	**Note***: The default password is* `D0ckerconEU!`
 
-2. Run the UCP bootstrap with the install option
+2. Run the UCP installer
 
 		docker run --rm -it \
 		-v /var/run/docker.sock:/var/run/docker.sock \ 
@@ -38,15 +38,17 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 		INFO[0027] Orca Server SSL: SHA1 Fingerprint=48:22:4F:6B:36:6D:
 		INFO[0027] Login as "admin"/(your admin password) to Orca at https://<node-0 private IP>:443
 
-4. Open your web browser, and naviate to `https://<node-0 IP>`.
+1. In your web browser navigate to the UCP server via Node-0's IP
 
-	**Note***: Use* `https` *not* `http`
-
-	Username: admin
+	For example: `https://52.224.13.6`
 	
-	Password: D0ckerconEU!
+	**Note***: You will be warned that your connection is not private. That is 	because we are not using publicly signed certificates for the SSL 	connnection to the website.*
 	
-	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 images, 1 node, and 0 applications running. These images and containers are what power the UCP server.
+	*To by pass this click `advanced` and then `proceed to . . . .` link*
+	
+2. Login into the UCP server with the username `admin` (case sensitive) and the 	password `D0ckerconEU!`
+	
+	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 	images, 1 node, and 0 applications running. These images and containers are 	what power the UCP server.
 	
 ##Task 2: Deploy a Second Docker Host (NOT FINISHED)
 One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In this step we'll add a 2nd node (**Node-1**) to for UCP to manage (which is the same as adding a second node to a Swarm cluster). 
@@ -75,20 +77,21 @@ One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In 
 	- Admin password: `D0ckerconEU!`
 	- Additional Aliases: `<Node-1 Public DNS>` `<Node-1 IP>`
 
-#(Not Finished)
+	The Installer should finish with something similar to:
+	
+		blah
+		blah
+		blah
+	
+4. Go back to your web browser, and refresh the dashboard. You should now see you have 2 nodes running. 
+
+5. Click `Nodes`
+
+	Here you can see details on both of your running nodes
+
 
 ##Task 3: Create a Container
 In this section we'll deploy an Nginx container using UCP
-
-1. In your web browser navigate to the UCP server via Node-0's public DNS
-
-	For example: `https://ec2-52-33-49.us-west-2.compute.amazonaws.com`
-	
-	**Note***: You will be warned that your connection is not private. That is because we are not using publicly signed certificates for the SSL connnection to the website.*
-	
-	*To by pass this click `advanced` and then `proceed to . . . .` link*
-	
-2. Login into the UCP server with the username `admin` (case sensitive) and the password `D0ckerconEU!`
 
 3. In the UCP UI click the menu button in the upper left corner
 
@@ -125,7 +128,7 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 3. Open a command / terminal window on your laptop and create a directory on your local machine, copy the downloaded file into that directory and unzip it
 
-	**Note***: Below is an example from a Macbook, it will be different for Windows users, and may be differnt or other users on a Macbook depending on configurations. If you need assistance ask a lab volunteer*
+	**Note***: Below is an example from a Macbook, it will be different for 	Windows users, and may be differnt or other users on a Macbook depending on 	configurations. If you need assistance ask a lab volunteer*
 
 		~ $ mkdir UCP
 		~ $ cd UCP
@@ -165,16 +168,17 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 		$ cd UCP
 		
-7. Execute the `env.sh` script to set the appropriate environment variables for your UCP deployment
+7. Execute the `env.sh` script to set the appropriate environment variables for 	your UCP deployment
 
 		$ source env.sh
 		
-8. Because AWS has both a private and public network, we need to reset the DOCKER_HOST environment variable to point to the private IP address of **Node-0** (our UCP server)
+8. Because AWS has both a private and public network, we need to reset the 	DOCKER_HOST environment variable to point to the private IP address of 	**Node-0** (our UCP server)
 
 		$ eval DOCKER_HOST=tcp://<node-0 private IP>:2376
 		
 9. Run `docker info` to examine the configuration of your Docker Swarm
 
+##info below is wrong, need to udpate
 		$ docker info
 		Containers: 7
 		Images: 8
@@ -203,7 +207,7 @@ In this task we'll use Docker Compose to stand up a multi-tier application on ou
 
 	$ cd ~/
 
-2. Clone the repo for our example application (Bonus points if you fork vs. clone)
+2. Clone the repo for our example application (Bonus points if you fork vs. 	clone)
 
 		$ git clone http://github.com/mikegcoleman/dockercoins.git
 		Cloning into 'dockercoins'...
@@ -216,11 +220,11 @@ In this task we'll use Docker Compose to stand up a multi-tier application on ou
 
 		$ cd dockercoins
 		
-4. Standup the application. The compose file will stand up 5 different containers that comprise an app that mines dockercoins (a fake currency to buy fake goods in a fake marketplace).
+4. Standup the application. The compose file will stand up 5 different 	containers that comprise an app that mines dockercoins (a fake currency to 	buy fake goods in a fake marketplace).
 
 		$ docker-compose up -d
 		
-	It will take a couple minutes for the compose to complete, and several lines of text 	will scroll by. It should finish similar to this
+	It will take a couple minutes for the compose to complete, and several lines 	of text 	will scroll by. It should finish similar to this
 
 		Removing intermediate container 719c1c71f6ef
 		Step 4 : COPY files/ /files/
@@ -236,7 +240,7 @@ In this task we'll use Docker Compose to stand up a multi-tier application on ou
 		Successfully built 97dfeab680fb
 		Creating dockercoins_webui_1
 
-5. In your web browser, open a new tab and navigate to `http://<node-0 public IP>:8000/` to see your app running 
+5. In your web browser, open a new tab and navigate to 	`http://<node-0 public IP>:8000/` You should see the Dockercoins UI 
 
 	**Note***: Be sure to use HTTP not HTTPS*
 		
@@ -258,10 +262,6 @@ In this task we'll use Docker Compose to stand up a multi-tier application on ou
 
 	This shows us the details of the running container. We can also control container state 	here. Aditionally we can scale out a given container. 
 	
-9. Click `Scale` and enter 5 as the number of instances. Then click `Scale` again. 
-
-	![Scale](images/scale.png)
-
 10. Notice how the menu bar allows you to see performance stats, logs, and even open a console window into the container. Feel free to explore these options. 
 
 	![Container Menu](images/container_menu.png)
