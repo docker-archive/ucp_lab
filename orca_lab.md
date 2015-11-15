@@ -50,7 +50,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	
 	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 	images, 1 node, and 0 applications running. These images and containers are 	what power the UCP server.
 	
-##Task 2: Deploy a Second Docker Host (NOT FINISHED)
+##Task 2: Deploy a Second Docker Host
 In this step we'll add a 2nd node (**ducp-1**) to our cluster. 
 
 1. In a new terminal session SSH into **ducp-1**
@@ -231,10 +231,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 		orca-node-0: Pulling dockercond2/dockercon-result-app:latest... : downloaded
 		Creating ubuntu_result-app_1
 		Attaching to ubuntu_db_1, ubuntu_redis_1, ubuntu_worker_1, ubuntu_voting-app_1, ubuntu_result-app_1
-		
-5. In your web browser, open a new tab and navigate to 	`http://<ducp-0 public IP>:8000/` You should see the Dockercoins UI 
 
-	**Note***: Be sure to use HTTP not HTTPS*
 		
 5. In your web browser navigate back to the UCP server (`https://<ducp-0 public IP>`)
 
@@ -244,17 +241,25 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 
 	![Menu](images/menu.png)
 	
-7. List out all the running containers by clicking `Show` on the line listing 	the Dockercoins application
+7. List out all the running containers by clicking `Show` on the line listing 	the Ubuntu application
 
 	![Show Containers](images/show.png)
-	
-	Notice that from here you control the container state (stop, restart, start) 	as well as 	delete a container. 
 
-8. Click `inspect` next to any of the containers
+8. Click show to the on the Ubuntu application to find 	out which nodes your voting app and results are running (`ducp-0` or `ducp-1`)
+
+	In your web browser navigate to the IP address (and port 5000) of the node (`ducp-0` or `ducp-1`) 	where the voting app is running. 
+
+	For example: `http://52.23.41.23:5000` 
+	
+	Then navigate to the IP address (and port 5001) of the node (`ducp-0` or `ducp-1`) 	where the results app is running. 
+
+	For example: `http://52.23.41.23:8005`
+
+8. Navigate back to the applcation view in UPC, and click `inspect` next to any 	of the containers
 
 	This shows us the details of the running container. We can also control 	container state 	here. Aditionally we can scale out a given container. 
 	
-10. Notice how the menu bar allows you to see performance stats, logs, and even open a console window into the container. Feel free to explore these options. 
+10. Notice how the menu bar allows you to see performance stats, logs, and even 	open a console window into the container. Feel free to explore these 	options. 
 
 	![Container Menu](images/container_menu.png)
 	
