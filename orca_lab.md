@@ -24,7 +24,9 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 3. Provide the following inputs:
 
 	- Password: `D0ckerconEU!`
-	- Additional Aliases: `<Node-0 Public DNS>` `<Node-0 Public IP>`
+	- Additional Aliases: `<Node-0 Public DNS>` `<Node-0 IP>`
+	 
+	  **Note***: Do not use the private IP. Use the one labled "IP"*
 
 	The UCP installer should finish something similar to:
 	
@@ -36,10 +38,20 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 		INFO[0027] Orca Server SSL: SHA1 Fingerprint=48:22:4F:6B:36:6D:
 		INFO[0027] Login as "admin"/(your admin password) to Orca at https://<node-0 private IP>:443
 
+4. Open your web browser, and naviate to `https://<node-0 IP>`.
+
+	**Note***: Use* `https` *not* `http`
+
+	Username: admin
+	
+	Password: D0ckerconEU!
+	
+	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 images, 1 node, and 0 applications running. These images and containers are what power the UCP server.
+	
 ##Task 2: Deploy a Second Docker Host (NOT FINISHED)
 One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In this step we'll add a 2nd node (**Node-1**) to for UCP to manage (which is the same as adding a second node to a Swarm cluster). 
 
-1. SSH into **Node-1**
+1. In a new terminal session SSH into **Node-1**
 
 		$ ssh ubuntu@<node-1 public ip>
 	
@@ -57,11 +69,11 @@ One of UCP's capabilities is that it acts as a web-based front-end to Swarm. In 
 
 3. Provide the following inputs:
 
-	- URL to the Orca server: `https://<node-0 private IP>`
+	- URL to the Orca server: `https://<node-0 IP>`
 	- Proceed with the join: `y`
 	- Admin username: `admin`
 	- Admin password: `D0ckerconEU!`
-	- Additional Aliases: `<Node-1 Public DNS>` `<Node-1 Public IP>`
+	- Additional Aliases: `<Node-1 Public DNS>` `<Node-1 IP>`
 
 #(Not Finished)
 
