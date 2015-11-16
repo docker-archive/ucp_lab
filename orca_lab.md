@@ -193,11 +193,11 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 3. Use the editor of your choice to createa  docker_compose.yml file, and copy the following commands into your new file. 
 
 		voting-app:
-  		image: dockercond2/dockercon-voting-app
+  		  image: dockercond2/dockercon-voting-app
 		  links:
 		    - redis:voteapps_redis_1
 		  ports:
-		    - "5000:80"
+		   	 - "5000:80"
 
 		redis:	
 		  image: redis
@@ -205,19 +205,19 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 
 		worker:	
 		  image: dockercond2/dockercon-worker
-	  links:
-		    - redis:voteapps_redis_1
+	  	  links:
+		   	- redis:voteapps_redis_1
 		    - db:voteapps_db_1
 
 		db:
-  		image: postgres:9.4
+  		  image: postgres:9.4
 
 		result-app:
 		  image: dockercond2/dockercon-result-app
 		  links:
-		      - db:voteapps_db_1
+		    - db:voteapps_db_1
 		  ports:
-		    - "5001:80"
+		   	 - "5001:80"
 		
 4. Standup the application. The compose file will stand up several different 	containers that comprise a voting app
 
