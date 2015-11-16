@@ -95,7 +95,7 @@ In this section we'll deploy an Nginx container using UCP
 
 3. In the UCP UI click the menu button in the upper left corner
 
-	![Menu](images/new_menu.png)
+	![Menu](images/drop_down.png)
 
 4. From the drop down select `Containers`
 
@@ -107,17 +107,17 @@ In this section we'll deploy an Nginx container using UCP
 	- Container Name: `mynginx`
 	- Under Network set port 80 to redirect to 8005 and click the `+` button
 
-	![Ports](images/new_port.jpg)
+	![Ports](images/ports.png)
 	
 	Feel free to examine the other settings, but leave them at their defaults
 	
 5. Click `Run Container`
 
-	![Run Container](images/new_run_container.jpg)
+	![Run Container](images/run_container.png)
 	
 6. Click the magnifying glass next to  your container, 
 
-	![Magnifying Glass](images/magnifying_glass.jpg)
+	![Magnifying Glass](images/magnifying_glass.png)
 
 	Scroll down to the node section of the page to find out 	which node your webserver is 	running on (`node-0` or 	`node-1`)
 	
@@ -125,7 +125,7 @@ In this section we'll deploy an Nginx container using UCP
 
 	In your web browser navigate to the IP address (and port 	8005) of the node (`node-0` or `node-1`) where Nginx is 	running. 
 	
-	![Which Node](images/which_node.jpg)
+	![Which Node](images/which_node.png)
 
 	For example: `http://52.23.41.23:8005`
 
@@ -251,15 +251,15 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 	
 6. Click on the menu icon and select `applications` from the drop down. 
 
-	![Menu](images/new_menu.png)
+	![Menu](images/drop_down.png)
 	
 7. List out all the running containers by clicking `Show` on the line listing the Ubuntu application
 
-	![Show Containers](images/show_containers.jpg)
+	![Show Containers](images/show_containers.png)
 
 8. Click show to the on the Ubuntu application to find 	out which nodes your voting app and results are running 	(`node-0` or `node-1`)
 
-	![Which Container](images/examine_containers.jpg)
+	![Which Container](images/examine_containers.png)
 
 	In your web browser navigate to the IP address (and port 	5000) of the node (`node-0` or `node-1`) 	where the voting app is running. 
 
