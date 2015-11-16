@@ -95,7 +95,7 @@ In this section we'll deploy an Nginx container using UCP
 
 3. In the UCP UI click the menu button in the upper left corner
 
-	![Menu](images/menu.png)
+	![Menu](images/new_menu.png)
 
 4. From the drop down select `Containers`
 
