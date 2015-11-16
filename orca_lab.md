@@ -1,13 +1,13 @@
 ##Task 1: Installing Docker Universal Control Plane
-In this task we're going to install the Docker Universal Control Plane (UCP) server onto **ducp-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
+In this task we're going to install the Docker Universal Control Plane (UCP) server onto **node-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
 
 **Note***: Normally the installer would pull the installation images from Docker Hub or Docker Trusted Registry (DTR), for this lab, we've prestaged the images onto your machine so you won't need to login to either Docker Hub or DTR*
 
 **Note***: Some dialogs / logs will say "Orca" this is the internal code name for UCP*
 
-1. SSH into **ducp-0**
+1. SSH into **node-0**
 
-		$ ssh ubuntu@<ducp-0 public ip>
+		$ ssh ubuntu@<node-0 public ip>
 	
  	**Note***: You may be prompted to accept the RSA key. If so, enter* `yes`
  	
@@ -24,7 +24,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 3. Provide the following inputs:
 
 	- Password: `D0ckerconEU!`
-	- Additional Aliases: `<ducp-0 Public DNS>` `<ducp-0 IP>`
+	- Additional Aliases: `<node-0 Public DNS>` `<node-0 IP>`
 	 
 	  **Note***: Do not use the private IP. Use the one labled "IP"*
 
@@ -36,9 +36,9 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 		INFO[0022] Deploying Orca Containers
 		INFO[0027] Orca instance ID: JJOB:SQP3:PERQ:UPP3:54UP:K7B6:ZWL6:GLES:CN7M:5KLO
 		INFO[0027] Orca Server SSL: SHA1 Fingerprint=48:22:4F:6B:36:6D:
-		INFO[0027] Login as "admin"/(your admin password) to Orca at https://<ducp-0 private IP>:443
+		INFO[0027] Login as "admin"/(your admin password) to Orca at https://<node-0 private IP>:443
 
-1. In your web browser navigate to the UCP server via ducp-0's IP
+1. In your web browser navigate to the UCP server via node-0's IP
 
 	For example: `https://52.224.13.6`
 	
@@ -51,11 +51,11 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 	images, 1 node, and 0 applications running. These images and containers are 	what power the UCP server.
 	
 ##Task 2: Deploy a Second Docker Host
-In this step we'll add a 2nd node (**ducp-1**) to our cluster. 
+In this step we'll add a 2nd node (**node-1**) to our cluster. 
 
-1. In a new terminal session SSH into **ducp-1**
+1. In a new terminal session SSH into **node-1**
 
-		$ ssh ubuntu@<ducp-1 public ip>
+		$ ssh ubuntu@<node-1 public ip>
 	
  	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
  	
@@ -71,11 +71,11 @@ In this step we'll add a 2nd node (**ducp-1**) to our cluster.
 
 3. Provide the following inputs:
 
-	- URL to the Orca server: `https://<ducp-0 IP>`
+	- URL to the Orca server: `https://<node-0 IP>`
 	- Proceed with the join: `y`
 	- Admin username: `admin`
 	- Admin password: `D0ckerconEU!`
-	- Additional Aliases: `<ducp-1 Public DNS>` `<ducp-1 IP>`
+	- Additional Aliases: `<node-1 Public DNS>` `<node-1 IP>`
 
 	The Installer should finish with something similar to:
 	
@@ -95,7 +95,7 @@ In this section we'll deploy an Nginx container using UCP
 
 3. In the UCP UI click the menu button in the upper left corner
 
-	![Menu](images/menu.jpg)
+	![Menu](images/new_menu.png)
 
 4. From the drop down select `Containers`
 
@@ -107,17 +107,25 @@ In this section we'll deploy an Nginx container using UCP
 	- Container Name: `mynginx`
 	- Under Network set port 80 to redirect to 8005 and click the `+` button
 
-	![Ports](images/ports.png)
+	![Ports](images/new_port.jpg)
 	
 	Feel free to examine the other settings, but leave them at their defaults
 	
 5. Click `Run Container`
 
-	![Run Container](images/run_container.png)
+	![Run Container](images/new_run_container.jpg)
 	
-6. Click the magnifying glass next to  your container, and scroll down to find 	out which node your webserver is running on (`ducp-0` or `ducp-1`)
+6. Click the magnifying glass next to  your container, 
 
-	In your web browser navigate to the IP address (and port 8005) of the node (`ducp-0` or `ducp-1`) 	where Nginx is running. 
+	![Magnifying Glass](images/magnifying_glass.jpg)
+
+	Scroll down to the node section of the page to find out 	which node your webserver is 	running on (`node-0` or 	`node-1`)
+	
+	
+
+	In your web browser navigate to the IP address (and port 	8005) of the node (`node-0` or `node-1`) where Nginx is 	running. 
+	
+	![Which Node](images/which_node.jpg)
 
 	For example: `http://52.23.41.23:8005`
 
@@ -126,9 +134,9 @@ In this section we'll deploy an Nginx container using UCP
 ## Task 4: Using UCP from the Command Line
 One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle on to an Ubuntu host in AWS.
 
-1. SSH into **ducp-2**
+1. SSH into **node-2**
 
-		$ ssh ubuntu@<ducp-2 public IP>
+		$ ssh ubuntu@<node-2 public IP>
 		
    **Note***: You may be promted to accept the RSA key. If so, enter* `yes`
  	
@@ -144,16 +152,22 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 1. In order to curl the container onto our machine, we need to export the security token from the UCP server
 
-		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"D0ckerconEU!"}' https://<ducp-0 IP>/auth/login | jq -r .auth_token)
+		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"D0ckerconEU!"}' https://<node-0 IP>/auth/login | jq -r .auth_token)
 		
 	
 2. Curl the client bundle down to your node. 
 
-		curl -k -H "X-Access-Token:admin:$AUTHTOKEN" https://<ducp-0 IP>/api/clientbundle -o bundle.zip
+		curl -k -H "X-Access-Token:admin:$AUTHTOKEN" https://<node-0 IP>/api/clientbundle -o bundle.zip
 		
 3. Unzip the client bundle
 		
 		$ unzip bundle.zip
+		Archive:  bundle.zip
+ 		extracting: ca.pem
+		extracting: cert.pem
+		extracting: key.pem
+ 		extracting: cert.pub
+		extracting: env.sh
 		
 7. Execute the `env.sh` script to set the appropriate environment variables for 	your UCP deployment
 
@@ -188,9 +202,9 @@ One of the great things about UCP is that it doesn't preclude you from using the
 ##Task 5: Use Docker Compose 
 In this task we'll use Docker Compose to stand up a multi-tier voting application. 
 
-1. Make sure you're SSH'd into **ducp-2**
+1. Make sure you're SSH'd into **node-2**
 		
-3. Use the editor of your choice to createa  docker_compose.yml file, and copy the following commands into your new file. 
+3. Use the editor of your choice to createa a file named `docker-compose.yml`, and copy the following commands into your new file. 
 
 		voting-app:
   		  image: dockercond2/dockercon-voting-app
@@ -219,7 +233,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 		  ports:
 		   	 - "5001:80"
 		
-4. Standup the application. The compose file will stand up several different 	containers that comprise a voting app
+4. Deploy the application. The compose file will start several different containers that comprise a voting app
 
 		$ docker-compose up -d
 		
@@ -230,38 +244,40 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 		orca-node-1: Pulling dockercond2/dockercon-result-app:latest... : downloaded
 		orca-node-0: Pulling dockercond2/dockercon-result-app:latest... : downloaded
 		Creating ubuntu_result-app_1
-		Attaching to ubuntu_db_1, ubuntu_redis_1, ubuntu_worker_1, ubuntu_voting-app_1, ubuntu_result-app_1
-
 		
-5. In your web browser navigate back to the UCP server (`https://<ducp-0 public IP>`)
+5. In your web browser navigate back to the UCP server (`https://<node-0 public IP>`)
 
 	Notice the dashboard now shows 1 application running. 
 	
 6. Click on the menu icon and select `applications` from the drop down. 
 
-	![Menu](images/menu.png)
+	![Menu](images/new_menu.png)
 	
-7. List out all the running containers by clicking `Show` on the line listing 	the Ubuntu application
+7. List out all the running containers by clicking `Show` on the line listing the Ubuntu application
 
-	![Show Containers](images/show.png)
+	![Show Containers](images/show_containers.jpg)
 
-8. Click show to the on the Ubuntu application to find 	out which nodes your voting app and results are running (`ducp-0` or `ducp-1`)
+8. Click show to the on the Ubuntu application to find 	out which nodes your voting app and results are running 	(`node-0` or `node-1`)
 
-	In your web browser navigate to the IP address (and port 5000) of the node (`ducp-0` or `ducp-1`) 	where the voting app is running. 
+	![Which Container](images/examine_containers.jpg)
+
+	In your web browser navigate to the IP address (and port 	5000) of the node (`node-0` or `node-1`) 	where the voting app is running. 
 
 	For example: `http://52.23.41.23:5000` 
 	
-	Then navigate to the IP address (and port 5001) of the node (`ducp-0` or `ducp-1`) 	where the results app is running. 
+	Then navigate to the IP address (and port 5001) of the 	node (`node-0` or `node-1`) 	where the results app is 	running. 
 
 	For example: `http://52.23.41.23:8005`
 
-8. Navigate back to the applcation view in UPC, and click `inspect` next to any 	of the containers
-
-	This shows us the details of the running container. We can also control 	container state 	here. Aditionally we can scale out a given container. 
+8. Navigate back to the applcation view in UPC, and click 	`inspect` next to any 	of the containers
 	
-10. Notice how the menu bar allows you to see performance stats, logs, and even 	open a console window into the container. Feel free to explore these 	options. 
+	This shows us the details of the running container. We 	can control container state here. Aditionally we 	can scale out a given container. 
+	
+	Finally, the menu bar allows you to see performance 	stats, logs, and even 	open a console window into the 	container. 
+	
+	Feel free to explore these 	options. 
 
-	![Container Menu](images/container_menu.png)
+	![Container Menu](images/container_menu.jpg)
 	
 	
 
