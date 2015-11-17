@@ -289,7 +289,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 	
 	Then navigate to the IP address (and port 5001) of the 	node (`node-0` or `node-1`) 	where the results app is 	running. 
 
-	For example: `http://52.23.41.23:8005`
+	For example: `http://52.23.41.23:5001`
 
 8. Navigate back to the applcation view in UPC, and click 	`inspect` next to any 	of the containers
 	
