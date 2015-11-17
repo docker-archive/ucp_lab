@@ -32,20 +32,19 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 		$ ssh ubuntu@<node-0 public ip>
 	
  	**Note***: You may be prompted to accept the RSA key. If so, enter* `yes`
- 	
- 	**Note***: The default password is* `D0ckerconEU!`
+ 
 
 2. Run the UCP installer
 
 		docker run --rm -it \
-		-v /var/run/docker.sock:/var/run/docker.sock \ 
+		-v /var/run/docker.sock:/var/run/docker.sock \
 		--name orca-bootstrap \
 		dockerorca/orca-bootstrap \
 		install -i
 		
 3. Provide the following inputs:
 
-	- Password: `D0ckerconEU!`
+	- Password: `<password>`
 	- Additional Aliases: `<node-0 Public DNS>` `<node-0 IP>`
 	 
 	  **Note***: Do not use the private IP. Use the one labled "IP"*
@@ -68,7 +67,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	
 	*To by pass this click `advanced` and then `proceed to . . . .` link*
 	
-2. Login into the UCP server with the username `admin` (case sensitive) and the 	password `D0ckerconEU!`
+2. Login into the UCP server with the username `admin` (case sensitive) and the 	password `<password>`
 	
 	You'll be logged into the UCP dashboard. Notice you have 7 containers, 7 	images, 1 node, and 0 applications running. These images and containers are 	what power the UCP server.
 	
@@ -81,7 +80,7 @@ In this step we'll add a 2nd node (**node-1**) to our cluster.
 	
  	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
  	
- 	**Note***: The default password is* `D0ckerconEU!`
+ 	**Note***: The default password is* `<password>`
 
 2. Run the UCP bootstrap with the join option
 
@@ -96,7 +95,7 @@ In this step we'll add a 2nd node (**node-1**) to our cluster.
 	- URL to the Orca server: `https://<node-0 IP>`
 	- Proceed with the join: `y`
 	- Admin username: `admin`
-	- Admin password: `D0ckerconEU!`
+	- Admin password: `<password>`
 	- Additional Aliases: `<node-1 Public DNS>` `<node-1 IP>`
 
 	The Installer should finish with something similar to:
@@ -162,7 +161,7 @@ One of the great things about UCP is that it doesn't preclude you from using the
 		
    **Note***: You may be promted to accept the RSA key. If so, enter* `yes`
  	
- 	**Note***: The default password is* `D0ckerconEU!`
+ 	**Note***: The default password is* `<password>`
 
 2. Install jq
 
@@ -174,7 +173,7 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 1. In order to curl the container onto our machine, we need to export the security token from the UCP server
 
-		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"D0ckerconEU!"}' https://<node-0 IP>/auth/login | jq -r .auth_token)
+		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"<password>"}' https://<node-0 IP>/auth/login | jq -r .auth_token)
 		
 	
 2. Curl the client bundle down to your node. 
@@ -283,7 +282,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 
 	![Which Container](images/examine_containers.png)
 
-	In your web browser navigate to the IP address (and port 	5000) of the node (`node-0` or `node-1`) 	where the voting app is running. 
+	In your web browser navigate to the IP address (and port 5000) of the node (`node-0` or `node-1`) 	where the voting app is running. 
 
 	For example: `http://52.23.41.23:5000` 
 	
@@ -291,7 +290,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 
 	For example: `http://52.23.41.23:5001`
 
-8. Navigate back to the applcation view in UPC, and click 	`inspect` next to any 	of the containers
+8. Navigate back to the applcation view in UPC, and click `inspect` next to any of the containers
 	
 	This shows us the details of the running container. We 	can control container state here. Aditionally we 	can scale out a given container. 
 	
