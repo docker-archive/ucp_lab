@@ -121,7 +121,7 @@ In this section we'll deploy an Nginx container using UCP
 
 4. From the drop down select `Containers`
 
-5. On the Orca / Networks page, click `+ Deploy Container`
+5. On the Orca / Nodes page, click `+ Deploy Container`
 	
 6. Provide the following inputs:
 
