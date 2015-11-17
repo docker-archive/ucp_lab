@@ -174,12 +174,12 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 1. In order to curl the container onto our machine, we need to export the security token from the UCP server
 
-		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"D0ckerconEU!"}' https://<node-0 IP>/auth/login | jq -r .auth_token)
+		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"D0ckerconEU!"}' https://<node-0 Private IP>/auth/login | jq -r .auth_token)
 		
 	
 2. Curl the client bundle down to your node. 
 
-		curl -k -H "X-Access-Token:admin:$AUTHTOKEN" https://<node-0 IP>/api/clientbundle -o bundle.zip
+		curl -k -H "X-Access-Token:admin:$AUTHTOKEN" https://<node-0 Private IP>/api/clientbundle -o bundle.zip
 		
 3. Unzip the client bundle
 		
