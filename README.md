@@ -47,7 +47,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	- Password: `<password of your choosing>`
 	- Additional Aliases: `<ducp-0 Public DNS>` `<ducp-0 IP>`
 	 
-	  **Note***: Do **not** use the private IP. Use the one labled "IP"*
+	  **Note***: Do not use the private IP. Use the one labled "IP"*
 
 	The UCP installer should finish something similar to:
 	
@@ -256,7 +256,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 		orca-ducp-0: Pulling dockercond2/dockercon-result-app:latest... : downloaded
 		Creating ubuntu_result-app_1
 		
-5. In your web browser navigate back to the UCP server (`https://<ducp-0 public IP>`)
+5. In your web browser navigate back to the UCP server dashboard (`https://<ducp-0 public IP>`)
 
 	Notice the dashboard now shows 1 application running. 
 	
