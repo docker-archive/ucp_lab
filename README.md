@@ -248,7 +248,7 @@ In this task we'll use Docker Compose to stand up a multi-tier voting applicatio
 
 		$ docker-compose up -d
 		
-	It will take a couple minutes for the compose to complete, and several lines 	of text will scroll by. It should finish similar to this
+	It will take several minutes for the compose to complete, and several lines of text will scroll by. It should finish similar to this
 
 		Creating ubuntu_voting-app_1
 		Pulling result-app (dockercond2/dockercon-result-app:latest)...
