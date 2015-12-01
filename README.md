@@ -65,7 +65,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	
 	**Note***: You will be warned that your connection is not private. That is 	because we are not using publicly signed certificates for the SSL 	connnection to the website.*
 	
-	*To by pass this in Chrome click `advanced` and then `proceed to . . . .` link. Safari may net let you past this warning*
+	*To bypass this in Chrome click `advanced` and then `proceed to . . . .` link. Safari may net let you past this warning*
 	
 2. Login into the UCP server with the username `admin` (case sensitive) and the password you chose. 
 	
@@ -76,9 +76,9 @@ In this step we'll add a 2nd node (**ducp-1**) to our cluster.
 
 1. In a new terminal session ssh into **ducp-1**
 
-		$ ssh -i <indentity file> ubuntu@<ducp-1 public ip>
+		$ ssh -i <identity file> ubuntu@<ducp-1 public ip>
 	
- 	**Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+ 	**Note***: You may be prompted to accept the RSA key. If so, enter* `yes`
 
 2. Run the UCP bootstrap with the join option
 
@@ -149,9 +149,9 @@ One of the great things about UCP is that it doesn't preclude you from using the
 
 1. ssh into **ducp-2**
 
-		$ ssh -i <indentity file> ubuntu@<ducp-2 public IP>
+		$ ssh -i <identity file> ubuntu@<ducp-2 public IP>
 		
-   **Note***: You may be promted to accept the RSA key. If so, enter* `yes`
+   **Note***: You may be prompted to accept the RSA key. If so, enter* `yes`
 
 2. Install jq
 
