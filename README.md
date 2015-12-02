@@ -1,7 +1,5 @@
 ##NOTE
-This lab was for Dockercon EU, and **will not** function outside of that environment unless you are part of the beta. 
-
-You can visit http://goto.docker.com/try-universal-control-plane.html to request to join the Docker Unviversal Control Plane beta. 
+This lab is for participants of the Docker Universal Control Plane beta program. It will not work unless you have access to the UCP binaries. 
 
 ##Introduction
 This lab will guide you through 5 tasks with Docker Universal Control Plane:
