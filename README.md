@@ -23,6 +23,14 @@ It should take 25-35 minutes to finish.
 ##What is Docker Universal Control Plane
 Docker Universal Control Plane is a an on-premise solution to help you manage your Docker-based applications. 
 
+## Prerequisites
+
+- This lab assumes you've created 3 Docker hosts running Docker Engine 1.9. These hosts should be named ducp-0, ducp-1, and ducp-2. 
+
+- You will need fully qualified domain name (FQDN) and IP address for each host.
+
+- You will need a Docker hub account that has been given permission to access the Docker Universal Control Plane beta.
+
 ##Task 1: Installing Docker Universal Control Plane
 In this task we're going to install the Docker Universal Control Plane (UCP) server onto **ducp-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
 
@@ -38,32 +46,31 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 
 2. Run the UCP installer
 
-		docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock --name orca-bootstrap dockerorca/orca-bootstrap install -i
+		docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock --name ucp dockerorca/ucp install -i
 		
 3. Provide the following inputs:
 
 	- Password: `<password of your choosing>`
-	- Additional Aliases: `<ducp-0 Public DNS>` `<ducp-0 IP>`
+	- Additional Aliases: `<ducp-0 FQDN>` `<ducp-0 IP>`
+	- Your Docker hub credentials
 	 
 	  **Note***: Do not use the private IP. Use the one labled "IP"*
 
 	The UCP installer should finish something similar to:
 	
-		INFO[0160] Installing Orca with host address 172.31.42.38
+		INFO[0160] Installing UCP with host address 172.31.42.38
 		INFO[0002] Generating Swarm Root CA
-		INFO[0013] Generating Orca Root CA
-		INFO[0022] Deploying Orca Containers
-		INFO[0027] Orca instance ID: JJOB:SQP3:PERQ:UPP3:54UP:K7B6:ZWL6:GLES:CN7M:5KLO
-		INFO[0027] Orca Server SSL: SHA1 Fingerprint=48:22:4F:6B:36:6D:
-		INFO[0027] Login as "admin"/(your admin password) to Orca at https://<ducp-0 private IP>:443
+		INFO[0013] Generating UCP Root CA
+		INFO[0022] Deploying UCP Containers
+		INFO[0027] UCP instance ID: JJOB:SQP3:PERQ:UPP3:54UP:K7B6:ZWL6:GLES:CN7M:5KLO
+		INFO[0027] UCP Server SSL: SHA1 Fingerprint=48:22:4F:6B:36:6D:
+		INFO[0027] Login as "admin"/(your admin password) to UCP at https://<ducp-0 IP>:443
 
-1. The installer will indicate the server is reachable on the `private IP`, but instead use your web browser navigate to the UCP server via ducp-0's `IP`
-
-	For example: `https://52.224.13.6`
+**Note***: If you are deploying to an EC2 istance, the installer may indicate the server is reachable on the `private IP`, but instead use your web browser navigate to the UCP server via ducp-0's `public IP`*
 	
-	**Note***: You will be warned that your connection is not private. That is 	because we are not using publicly signed certificates for the SSL 	connnection to the website.*
+**Note***: You may be warned that your connection is not private. That is 	because we are not using publicly signed certificates for the SSL connnection to the website.*
 	
-	*To bypass this in Chrome click `advanced` and then `proceed to . . . .` link. Safari may net let you past this warning*
+*To bypass this in Chrome click `advanced` and then `proceed to . . . .` link. Safari may net let you past this warning*
 	
 2. Login into the UCP server with the username `admin` (case sensitive) and the password you chose. 
 	
@@ -80,7 +87,7 @@ In this step we'll add a 2nd node (**ducp-1**) to our cluster.
 
 2. Run the UCP bootstrap with the join option
 
-		docker run --rm -it  -v /var/run/docker.sock:/var/run/docker.sock --name orca-bootstrap dockerorca/orca-bootstrap join -i
+		docker run --rm -it  -v /var/run/docker.sock:/var/run/docker.sock --name ucp dockerorca/ucp join -i
 
 3. Provide the following inputs:
 
@@ -88,12 +95,13 @@ In this step we'll add a 2nd node (**ducp-1**) to our cluster.
 	- Proceed with the join: `y`
 	- Admin username: `admin`
 	- Admin password: `<password>`
-	- Additional Aliases: `<ducp-1 Public DNS>` `<ducp-1 IP>`
+	- Docker Hub credentials
+	- Additional Aliases: `<ducp-1 FQDN>` `<ducp-1 IP>`
 
 	The Installer should finish with something similar to:
 	
-		INFO[0000] This engine will join Orca and advertise itself with host address 10.0.11.13
-		INFO[0000] Verifying your system is compatible with Orca
+		INFO[0000] This engine will join UCP and advertise itself with host address 10.0.11.13
+		INFO[0000] Verifying your system is compatible with UCP
 		INFO[0012] Starting local swarm containers
 	
 4. Go back to your web browser, and refresh the dashboard. You should now see you have 2 nodes running. 
@@ -143,32 +151,15 @@ In this section we'll deploy an Nginx container using UCP
 	You should see the Nginx welcome screen.
 	
 ## Task 4: Using UCP from the Command Line
-One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle on to an Ubuntu host in AWS.
+One of the great things about UCP is that it doesn't preclude you from using the Docker command line tools you're used to. In this task we're going to install the UCP client bundle onto your local machine
 
-1. ssh into **ducp-2**
-
-		$ ssh -i <identity file> ubuntu@<ducp-2 public IP>
-		
-   **Note***: You may be prompted to accept the RSA key. If so, enter* `yes`
-
-2. Install jq
-
-		$ sudo apt-get install jq
-		
-3. Install zip
-
-		$ sudo apt-get install zip
-
-1. In order to curl the container onto our machine, we need to export the security token from the UCP server
-
-		AUTHTOKEN=$(curl -sk -d '{"username":"admin","password":"<password>"}' https://<ducp-0 IP>/auth/login | jq -r .auth_token)
-		
+1. Navigate to your UCP server in your web browser
 	
-2. Curl the client bundle down to your node. 
+2. In the upper right corner click `admin` and choose `Profile`
 
-		curl -k -H "X-Access-Token:admin:$AUTHTOKEN" https://<ducp-0 IP>/api/clientbundle -o bundle.zip
+3. Click `Create a Client Bundle`
 		
-3. Unzip the client bundle
+4. Navigate to where the bundle was downloaded, and unzip the client bundle
 		
 		$ unzip bundle.zip
 		Archive:  bundle.zip
@@ -178,7 +169,9 @@ One of the great things about UCP is that it doesn't preclude you from using the
  		extracting: cert.pub
 		extracting: env.sh
 		
-7. Execute the `env.sh` script to set the appropriate environment variables for 	your UCP deployment
+5. Change into the directory that was created when the bundle was unzipped
+
+6. Execute the `env.sh` script to set the appropriate environment variables for 	your UCP deployment
 
 		$ source env.sh
 		
@@ -210,10 +203,8 @@ One of the great things about UCP is that it doesn't preclude you from using the
 			 
 ##Task 5: Use Docker Compose 
 In this task we'll use Docker Compose to stand up a multi-tier voting application. 
-
-1. Make sure you're ssh'd into **ducp-2**
 		
-3. Use the editor of your choice to createa a file named `docker-compose.yml`, and copy the following commands into your new file. 
+1. Use the editor of your choice to createa a file named `docker-compose.yml`, and copy the following commands into your new file. 
 
 		voting-app:
   		  image: dockercond2/dockercon-voting-app
