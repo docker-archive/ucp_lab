@@ -31,6 +31,19 @@ Docker Universal Control Plane is a an on-premise solution to help you manage yo
 
 - You will need a Docker hub account that has been given permission to access the Docker Universal Control Plane beta.
 
+- The following ports need to be accessible on all of you hosts for UCP to function:
+
+	- 443: 			UCP controller
+	- 2376: 			Swarm manager
+	- 12376: 			Engine proxy
+	- 12379, 12380: 	Key Value store
+	- 12381: 			Swarm CA service
+	- 12382:			UCD CA service
+
+- The following ports are used as part of this lab:
+	- 8005: 			Nginx container created in Task 3
+	- 5000, 5001:		Voting containers deployed in Task 5
+
 ##Task 1: Installing Docker Universal Control Plane
 In this task we're going to install the Docker Universal Control Plane (UCP) server onto **ducp-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
 
