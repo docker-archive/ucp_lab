@@ -47,9 +47,7 @@ Docker Universal Control Plane is a an on-premise solution to help you manage yo
 ##Task 1: Installing Docker Universal Control Plane
 In this task we're going to install the Docker Universal Control Plane (UCP) server onto **ducp-0**. This is done by running a bootstrap container, and providing a few pieces of information. 
 
-**Note***: Normally the installer would pull the installation images from Docker Hub or Docker Trusted Registry (DTR), for this lab, we've prestaged the images onto your machine so you won't need to login to either Docker Hub or DTR*
-
-**Note***: Some dialogs / logs will say "Orca" this is the internal code name for UCP*
+**Note***: Some dialogs / logs may say "Orca" this is the internal code name for UCP*
 
 1. ssh into **ducp-0**
 
