@@ -65,7 +65,7 @@ In this task we're going to install the Docker Universal Control Plane (UCP) ser
 	- Additional Aliases: `<ducp-0 FQDN>` `<ducp-0 IP>`
 	- Your Docker hub credentials
 	 
-	  **Note***: Do not use the private IP. Use the one labled "IP"*
+	  **Note***: Do not use the private IP. Use the one labelled "IP"*
 
 	The UCP installer should finish something similar to:
 	
